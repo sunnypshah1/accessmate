@@ -7,12 +7,22 @@ import { runAudit } from '@accessmate/dynamic-audit';
 import { retrieveGuidelines } from '@accessmate/rag';
 import { getRun, saveFindings, updateRun } from '@accessmate/persistence';
 import {
+  getInstallationByOrgId,
+  getProject,
+  getRun,
+  getSuggestedFileChanges,
+  saveFindings,
+  savePRRef,
+  updateRun,
+} from '@accessmate/persistence';
+import {
   assertQueueJob,
   createJobQueue,
   createJobWorker,
   queueJobSchema,
   type QueueJob,
 } from '@accessmate/queue';
+import { openPR } from '@accessmate/scm';
 
 const queue = createJobQueue();
 
@@ -140,7 +150,68 @@ createJobWorker(
         return;
       }
       case 'pr.open': {
-        log.info('pr.open job received (not yet implemented)', { projectId: data.projectId });
+        const project = getProject(data.projectId);
+        if (!project) {
+          log.warn('Received pr.open for unknown project', { projectId: data.projectId });
+          return;
+        }
+
+        const installation = getInstallationByOrgId(project.orgId);
+        if (!installation) {
+          log.error('No installation found for project', { projectId: project.id, orgId: project.orgId });
+          return;
+        }
+
+        const fileChanges = data.findingIds.flatMap((findingId) => getSuggestedFileChanges(findingId));
+        if (fileChanges.length === 0) {
+          log.warn('No file changes available for findings', { projectId: project.id, findingIds: data.findingIds });
+          return;
+        }
+
+        const branchSeed = typeof job.id === 'string' ? job.id : data.findingIds[0];
+        const branchSlug = branchSeed
+          ? branchSeed
+              .toLowerCase()
+              .replace(/[^a-z0-9-]/g, '-')
+              .replace(/-+/g, '-')
+              .replace(/^-|-$/g, '')
+          : undefined;
+        const branch = `accessmate/${branchSlug && branchSlug.length > 0 ? branchSlug : randomUUID()}`;
+        const changeCount = fileChanges.length;
+
+        try {
+          const pr = await openPR({
+            repo: project.repoFullName,
+            branch,
+            baseBranch: project.defaultBranch,
+            installationId: installation.githubInstallationId,
+            title: `Accessibility fixes (${data.findingIds.length} findings)`,
+            body: `This PR addresses ${data.findingIds.length} accessibility findings detected by AccessMate.`,
+            commitMessage: `chore: apply ${changeCount} accessibility ${changeCount === 1 ? 'fix' : 'fixes'}`,
+            files: fileChanges,
+          });
+
+          savePRRef({
+            id: randomUUID(),
+            projectId: project.id,
+            provider: 'github',
+            repo: project.repoFullName,
+            prNumber: pr.pullRequest.number,
+            branch: pr.pullRequest.branch,
+            status: 'open',
+          });
+
+          log.info('Pull request opened', {
+            projectId: project.id,
+            prNumber: pr.pullRequest.number,
+            branch: pr.pullRequest.branch,
+          });
+        } catch (error) {
+          log.error('Failed to open pull request for project', {
+            projectId: project.id,
+            error: error instanceof Error ? error.message : 'unknown error',
+          });
+        }
         return;
       }
     }

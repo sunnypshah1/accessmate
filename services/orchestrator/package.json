@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx src/worker.ts",
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
   },
   "dependencies": {
     "@accessmate/dynamic-audit": "workspace:*",
@@ -15,10 +16,12 @@
     "@accessmate/core-types": "workspace:*",
     "@accessmate/rag": "workspace:*",
     "bullmq": "^5.7.5"
+    "@accessmate/scm": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.19.17",
     "tsx": "^4.17.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.9"
   }
 }

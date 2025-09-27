@@ -264,6 +264,10 @@ importers:
       bullmq:
         specifier: ^5.7.5
         version: 5.58.9
+      '@accessmate/scm':
+        specifier: workspace:*
+        version: link:../scm
+
     devDependencies:
       '@types/node':
         specifier: ^20.19.17
@@ -274,6 +278,25 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.9.2
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@20.19.17)
+
+  services/scm:
+    dependencies:
+      '@accessmate/diagnostics':
+        specifier: workspace:*
+        version: link:../../libs/diagnostics
+      '@accessmate/github':
+        specifier: workspace:*
+        version: link:../../libs/github
+    devDependencies:
+      typescript:
+        specifier: ^5.5.4
+        version: 5.9.2
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@20.19.17)
 
   services/rag:
     dependencies:
