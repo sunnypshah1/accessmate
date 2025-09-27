@@ -4,6 +4,8 @@ import { Job } from 'bullmq';
 import { log } from '@accessmate/diagnostics';
 import type { Finding } from '@accessmate/core-types';
 import { runAudit } from '@accessmate/dynamic-audit';
+import { retrieveGuidelines } from '@accessmate/rag';
+import { getRun, saveFindings, updateRun } from '@accessmate/persistence';
 import {
   getInstallationByOrgId,
   getProject,
@@ -106,6 +108,18 @@ createJobWorker(
 
             for (const violation of result.violations) {
               const firstNode = violation.nodes[0];
+              const references = await retrieveGuidelines({
+                ruleId: violation.id,
+                contextSnippet: firstNode?.html ?? violation.description,
+              });
+              const topReference = references[0];
+              const referenceText = topReference
+                ? `${topReference.citation} — ${topReference.summary}`
+                : undefined;
+              const wcagRef = referenceText
+                ? `${referenceText}${violation.helpUrl ? ` (${violation.helpUrl})` : ''}`
+                : violation.helpUrl;
+
               findings.push({
                 id: randomUUID(),
                 runId,
@@ -113,7 +127,7 @@ createJobWorker(
                 severity: impactToSeverity(violation.impact),
                 selector: firstNode?.target?.[0],
                 snippet: firstNode?.html,
-                wcagRef: violation.helpUrl,
+                wcagRef,
               });
             }
           }

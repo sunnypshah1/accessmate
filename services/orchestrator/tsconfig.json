@@ -2,7 +2,25 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
-    "types": ["node"]
+    "types": ["node"],
+    "paths": {
+      "@accessmate/diagnostics": ["../../libs/diagnostics/src"],
+      "@accessmate/diagnostics/*": ["../../libs/diagnostics/src/*"],
+      "@accessmate/core-types": ["../../libs/core-types/src"],
+      "@accessmate/core-types/*": ["../../libs/core-types/src/*"],
+      "@accessmate/dynamic-audit": ["../dynamic-audit/src"],
+      "@accessmate/dynamic-audit/*": ["../dynamic-audit/src/*"],
+      "@accessmate/persistence": ["../../libs/persistence/src"],
+      "@accessmate/persistence/*": ["../../libs/persistence/src/*"],
+      "@accessmate/queue": ["../../libs/queue/src"],
+      "@accessmate/queue/*": ["../../libs/queue/src/*"],
+      "@accessmate/db": ["../../libs/db/src"],
+      "@accessmate/db/*": ["../../libs/db/src/*"],
+      "@accessmate/wcag": ["../../libs/wcag/src"],
+      "@accessmate/wcag/*": ["../../libs/wcag/src/*"],
+      "@accessmate/rag": ["../rag/src"],
+      "@accessmate/rag/*": ["../rag/src/*"]
+    }
   },
   "include": ["src"]
 }

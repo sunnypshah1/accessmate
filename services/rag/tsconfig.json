@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "types": ["node"],
+    "paths": {
+      "@accessmate/diagnostics": ["../../libs/diagnostics/src"],
+      "@accessmate/diagnostics/*": ["../../libs/diagnostics/src/*"],
+      "@accessmate/db": ["../../libs/db/src"],
+      "@accessmate/db/*": ["../../libs/db/src/*"],
+      "@accessmate/wcag": ["../../libs/wcag/src"],
+      "@accessmate/wcag/*": ["../../libs/wcag/src/*"]
+    }
+  },
+  "include": ["src"]
+}

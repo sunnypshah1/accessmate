@@ -14,6 +14,7 @@
     { "path": "./apps/github-app" },
     { "path": "./apps/web" },
     { "path": "./services/dynamic-audit" },
+    { "path": "./services/rag" },
     { "path": "./services/orchestrator" },
     { "path": "./services/scm" }
   ]
