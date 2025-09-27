@@ -8,7 +8,8 @@
         "lint": "pnpm -r lint",
         "test": "pnpm -r test",
         "typecheck": "pnpm -r typecheck",
-        "format": "pnpm -r format"
+        "format": "pnpm -r format",
+        "docker:build": "pnpm --filter @accessmate/api-gateway run build && pnpm --filter @accessmate/orchestrator run build && pnpm --filter @accessmate/dynamic-audit run build"
     },
     "workspaces": [
         "apps/*",

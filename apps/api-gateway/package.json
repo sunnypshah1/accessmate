@@ -8,10 +8,11 @@
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@accessmate/core-types": "workspace:*",
     "@accessmate/diagnostics": "workspace:*",
+    "@accessmate/github": "workspace:*",
     "@accessmate/persistence": "workspace:*",
-    "bullmq": "^5.6.0",
+    "@accessmate/queue": "workspace:*",
+    "@accessmate/core-types": "workspace:*",
     "express": "^4.19.2",
     "zod": "^3.23.8"
   },

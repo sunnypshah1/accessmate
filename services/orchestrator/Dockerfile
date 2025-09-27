@@ -8,11 +8,12 @@ FROM base AS deps
 WORKDIR /app
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml tsconfig.base.json ./
 COPY libs ./libs
-COPY apps/api-gateway/package.json ./apps/api-gateway/package.json
-RUN pnpm install --frozen-lockfile --filter @accessmate/api-gateway...
+COPY services/orchestrator/package.json ./services/orchestrator/package.json
+COPY services/dynamic-audit/package.json ./services/dynamic-audit/package.json
+RUN pnpm install --frozen-lockfile --filter @accessmate/orchestrator...
 
 FROM deps AS build
-RUN pnpm --filter @accessmate/api-gateway build
+RUN pnpm --filter @accessmate/orchestrator build
 
 FROM node:20-alpine AS runtime
 ENV NODE_ENV=production
@@ -21,6 +22,6 @@ ENV PATH=$PNPM_HOME:$PATH
 RUN corepack enable
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=build /app/apps/api-gateway/dist ./dist
-COPY apps/api-gateway/package.json ./package.json
-CMD ["node", "dist/index.js"]
+COPY --from=build /app/services/orchestrator/dist ./dist
+COPY services/orchestrator/package.json ./package.json
+CMD ["node", "dist/worker.js"]

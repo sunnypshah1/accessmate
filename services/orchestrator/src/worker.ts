@@ -1,13 +1,19 @@
 // services/orchestrator/src/worker.ts
 import { randomUUID } from 'node:crypto';
-import { Worker, Queue, Job } from 'bullmq';
+import { Job } from 'bullmq';
 import { log } from '@accessmate/diagnostics';
-import type { Finding, QueueJob } from '@accessmate/core-types';
+import type { Finding } from '@accessmate/core-types';
 import { runAudit } from '@accessmate/dynamic-audit';
 import { getRun, saveFindings, updateRun } from '@accessmate/persistence';
+import {
+  assertQueueJob,
+  createJobQueue,
+  createJobWorker,
+  queueJobSchema,
+  type QueueJob,
+} from '@accessmate/queue';
 
-const connection = { url: process.env.REDIS_URL ?? 'redis://localhost:6379' };
-const queue = new Queue<QueueJob>('accessmate-jobs', { connection });
+const queue = createJobQueue();
 
 function impactToSeverity(impact?: string | null): Finding['severity'] {
   switch (impact) {
@@ -39,31 +45,40 @@ function buildAuditUrls(routes: string[]): string[] {
   });
 }
 
-new Worker<QueueJob>(
-  'accessmate-jobs',
+createJobWorker(
   async (job: Job<QueueJob>) => {
+    const parsed = queueJobSchema.safeParse(job.data);
+    if (!parsed.success) {
+      log.error('Received malformed job payload', {
+        id: job.id,
+        issues: parsed.error.issues,
+      });
+      return;
+    }
+
+    const data = parsed.data;
     log.info('Job received', { kind: job.data.kind, id: job.id });
 
-    switch (job.data.kind) {
+    switch (data.kind) {
       case 'run.start': {
-        const run = updateRun(job.data.runId, { status: 'running' });
+        const run = updateRun(data.runId, { status: 'running' });
         if (!run) {
-          log.warn('Received run.start for unknown run', { runId: job.data.runId });
+          log.warn('Received run.start for unknown run', { runId: data.runId });
           return;
         }
 
-        const requestedRoutes = job.data.routes && job.data.routes.length > 0 ? job.data.routes : ['/'];
+        const requestedRoutes = data.routes && data.routes.length > 0 ? data.routes : ['/'];
         const urls = buildAuditUrls(requestedRoutes);
 
         await queue.add(
           'run.dynamicAudit',
-          { kind: 'run.dynamicAudit', runId: job.data.runId, routes: urls },
+          assertQueueJob({ kind: 'run.dynamicAudit', runId: data.runId, routes: urls }),
           { removeOnComplete: true, removeOnFail: 50 },
         );
         return;
       }
       case 'run.dynamicAudit': {
-        const { routes, runId } = job.data;
+        const { routes, runId } = data;
         const run = getRun(runId);
         if (!run) {
           log.warn('Received run.dynamicAudit for unknown run', { runId });
@@ -112,10 +127,9 @@ new Worker<QueueJob>(
         return;
       }
       case 'pr.open': {
-        log.info('pr.open job received (not yet implemented)', { projectId: job.data.projectId });
+        log.info('pr.open job received (not yet implemented)', { projectId: data.projectId });
         return;
       }
     }
   },
-  { connection },
 );
