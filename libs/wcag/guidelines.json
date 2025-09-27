@@ -1,0 +1,300 @@
+{
+  "checklist": {
+    "Content": [
+      {
+        "task": "Use plain language and avoid figures of speech, idioms, and complicated metaphors",
+        "wcag": "3.1.5 Reading Level"
+      },
+      {
+        "task": "Make sure that `button`, `a`, and `label` element content is unique and descriptive",
+        "wcag": "1.3.1 Info and Relationships"
+      },
+      {
+        "task": "Use left-aligned text for left-to-right (LTR) languages, and right-aligned text for right-to-left (RTL) languages",
+        "wcag": "1.4.8 Visual Presentation"
+      }
+    ],
+    "Global code": [
+      {
+        "task": "Validate your HTML",
+        "wcag": "4.1.1 Parsing"
+      },
+      {
+        "task": "Use a `lang` attribute on the `html` element",
+        "wcag": "3.1.1 Language of Page"
+      },
+      {
+        "task": "Provide a unique `title` for each page or view",
+        "wcag": "2.4.2 Page Titled"
+      },
+      {
+        "task": "Ensure that viewport zoom is not disabled",
+        "wcag": "1.4.4 Resize text"
+      },
+      {
+        "task": "Use landmark elements to indicate important content regions",
+        "wcag": "4.1.2 Name, Role, Value"
+      },
+      {
+        "task": "Ensure a linear content flow",
+        "wcag": "2.4.3 Focus Order"
+      },
+      {
+        "task": "Avoid using the `autofocus` attribute",
+        "wcag": "2.4.3 Focus Order"
+      },
+      {
+        "task": "Allow extending session timeouts",
+        "wcag": "2.2.1 Timing Adjustable"
+      },
+      {
+        "task": "Remove `title` attribute tooltips",
+        "wcag": "4.1.2 Name, Role, Value"
+      }
+    ],
+    "Keyboard": [
+      {
+        "task": "Make sure there is a visible focus style for interactive elements that are navigated to via keyboard input",
+        "wcag": "2.4.7 Focus Visible"
+      },
+      {
+        "task": "Check to see that keyboard focus order matches the visual layout",
+        "wcag": "1.3.2 Meaningful Sequence"
+      },
+      {
+        "task": "Remove invisible focusable elements",
+        "wcag": "2.4.3 Focus Order"
+      }
+    ],
+    "Images": [
+      {
+        "task": "Make sure that all `img` elements have an `alt` attribute",
+        "wcag": "1.1.1 Non-text Content"
+      },
+      {
+        "task": "Make sure that decorative images use null `alt` (empty) attribute values",
+        "wcag": "1.1.1 Non-text Content"
+      },
+      {
+        "task": "Provide a text alternative for complex images such as charts, graphs, and maps",
+        "wcag": "1.1.1 Non-text Content"
+      },
+      {
+        "task": "For images containing text, make sure the alt description includes the image’s text",
+        "wcag": "1.1.1 Non-text Content"
+      }
+    ],
+    "Headings": [
+      {
+        "task": "Use heading elements to introduce content",
+        "wcag": "2.4.6 Headings or Labels"
+      },
+      {
+        "task": "Use only one `h1` element per page or view",
+        "wcag": "2.4.6 Headings or Labels"
+      },
+      {
+        "task": "Heading elements should be written in a logical sequence",
+        "wcag": "2.4.6 Headings or Labels"
+      },
+      {
+        "task": "Don’t skip heading levels",
+        "wcag": "2.4.6 Headings or Labels"
+      }
+    ],
+    "Lists": [
+      {
+        "task": "Use list elements (`ol`, `ul`, `dl`) for list content",
+        "wcag": "1.3.1 Info and Relationships"
+      }
+    ],
+    "Controls": [
+      {
+        "task": "Use the `a` element for links",
+        "wcag": "1.3.1 Info and Relationships"
+      },
+      {
+        "task": "Ensure that links are recognizable as links",
+        "wcag": "1.4.1 Use of Color"
+      },
+      {
+        "task": "Ensure that controls have `:focus` states",
+        "wcag": "2.4.7 Focus Visible"
+      },
+      {
+        "task": "Use the `button` element for buttons",
+        "wcag": "1.3.1 Info and Relationships"
+      },
+      {
+        "task": "Provide a skip link and make sure that it is visible when focused",
+        "wcag": "2.4.1 Bypass Blocks"
+      },
+      {
+        "task": "Identify links that open in a new tab or window",
+        "wcag": "G201 (Advisory)"
+      }
+    ],
+    "Tables": [
+      {
+        "task": "Use the `table` element to describe tabular data",
+        "wcag": "1.3.1 Info and Relationships"
+      },
+      {
+        "task": "Use the `th` element for table headers (with appropriate `scope` attributes)",
+        "wcag": "4.1.1 Parsing"
+      },
+      {
+        "task": "Use the `caption` element to provide a title for the table",
+        "wcag": "2.4.6 Headings or Labels"
+      }
+    ],
+    "Forms": [
+      {
+        "task": "All inputs in a form are associated with a corresponding `label` element",
+        "wcag": "3.2.2 On Input"
+      },
+      {
+        "task": "Use `fieldset` and `legend` elements where appropriate",
+        "wcag": "1.3.1 Info and Relationships"
+      },
+      {
+        "task": "Inputs use `autocomplete` where appropriate",
+        "wcag": "1.3.5 Identify Input Purpose"
+      },
+      {
+        "task": "Make sure that form input errors are displayed in list above the form after submission",
+        "wcag": "3.3.1 Error Identification"
+      },
+      {
+        "task": "Associate input error messaging with the input it corresponds to",
+        "wcag": "3.3.1 Error Identification"
+      },
+      {
+        "task": "Make sure that error, warning, and success states are not visually communicated by just color",
+        "wcag": "1.4.1 Use of Color"
+      }
+    ],
+    "Media": [
+      {
+        "task": "Make sure that media does not autoplay",
+        "wcag": "1.4.2 Audio Control"
+      },
+      {
+        "task": "Ensure that media controls use appropriate markup",
+        "wcag": "1.3.1 Info and Relationships"
+      },
+      {
+        "task": "Check to see that all media can be paused",
+        "wcag": "2.1.1 Keyboard"
+      }
+    ],
+    "Video": [
+      {
+        "task": "Confirm the presence of captions",
+        "wcag": "1.2.2 Captions"
+      },
+      {
+        "task": "Remove seizure triggers",
+        "wcag": "2.3.1 Three Flashes or Below Threshold"
+      }
+    ],
+    "Audio": [
+      {
+        "task": "Confirm that transcripts are available",
+        "wcag": "1.1.1 Non-text Content"
+      }
+    ],
+    "Appearance": [
+      {
+        "task": "Check your content in specialized browsing modes",
+        "wcag": "1.4.1 Use of Color"
+      },
+      {
+        "task": "Increase text size to 200%",
+        "wcag": "1.4.4 Resize text"
+      },
+      {
+        "task": "Double-check that good proximity between content is maintained",
+        "wcag": "1.3.3 Sensory Characteristics"
+      },
+      {
+        "task": "Make sure color isn’t the only way information is conveyed",
+        "wcag": "1.4.1 Use of Color"
+      },
+      {
+        "task": "Make sure instructions are not visual or audio-only",
+        "wcag": "1.3.3 Sensory Characteristics"
+      },
+      {
+        "task": "Use a simple, straightforward, and consistent layout",
+        "wcag": "1.4.10 Reflow"
+      }
+    ],
+    "Animation": [
+      {
+        "task": "Ensure animations are subtle and do not flash too much",
+        "wcag": "2.3.1 Three Flashes or Below Threshold"
+      },
+      {
+        "task": "Provide a mechanism to pause background video",
+        "wcag": "2.2.2 Pause, Stop, Hide"
+      },
+      {
+        "task": "Make sure all animation obeys the `prefers-reduced-motion` media query",
+        "wcag": "2.3.3 Animation from Interactions"
+      }
+    ],
+    "Color contrast": [
+      {
+        "task": "Check the contrast for all normal-sized text",
+        "wcag": "1.4.3 Contrast"
+      },
+      {
+        "task": "Check the contrast for all large-sized text",
+        "wcag": "1.4.3 Contrast"
+      },
+      {
+        "task": "Check the contrast for all icons",
+        "wcag": "1.4.11 Non-text Contrast"
+      },
+      {
+        "task": "Check the contrast of borders for input elements (text input, radio, checkboxes, etc.)",
+        "wcag": "1.4.11 Non-text Contrast"
+      },
+      {
+        "task": "Check text that overlaps images or video",
+        "wcag": "1.4.3 Contrast"
+      },
+      {
+        "task": "Check custom `::selection` colors",
+        "wcag": "1.4.3 Contrast"
+      }
+    ],
+    "Mobile and touch": [
+      {
+        "task": "Check that the site can be rotated to any orientation",
+        "wcag": "1.3.4 Orientation"
+      },
+      {
+        "task": "Remove horizontal scrolling",
+        "wcag": "1.4.10 Reflow"
+      },
+      {
+        "task": "Ensure that button and link icons can be activated with ease",
+        "wcag": "2.5.5 Target Size"
+      },
+      {
+        "task": "Ensure sufficient space between interactive items in order to provide a scroll area",
+        "wcag": "2.4.1 Bypass Blocks"
+      }
+    ]
+  },
+  "notes": {
+    "levels": {
+      "A": "Essential — If this isn’t met, assistive technology may not be able to read, understand, or fully operate the page or view",
+      "AA": "Ideal Support — Required for multiple government and public body websites",
+      "AAA": "Specialized Support — typically reserved for parts of websites for a specialized audience"
+    },
+    "disclaimer": "This checklist covers many, but not all, level A and AA concerns. It does not guarantee a site is fully accessible."
+  }
+}

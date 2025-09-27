@@ -1,0 +1,5 @@
+FROM node:20-alpine
+RUN corepack enable
+WORKDIR /app
+COPY package.json pnpm-workspace.yaml tsconfig.base.json .editorconfig . ./
+RUN pnpm i --frozen-lockfile

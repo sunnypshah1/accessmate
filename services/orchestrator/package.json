@@ -1,0 +1,14 @@
+{
+"name": "@accessmate/orchestrator",
+"version": "0.1.0",
+"type": "module",
+"main": "dist/index.js",
+"scripts": {
+"dev": "tsx src/worker.ts",
+"build": "tsc -p tsconfig.json"
+},
+"dependencies": {
+"bullmq": "^5.6.0"
+},
+"devDependencies": { "tsx": "^4.17.0", "typescript": "^5.5.4" }
+}
