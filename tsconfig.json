@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.base.json",
+  "files": [],
+  "references": [
+    { "path": "./libs/core-types" },
+    { "path": "./libs/diagnostics" },
+    { "path": "./libs/persistence" },
+    { "path": "./libs/wcag" },
+    { "path": "./libs/github" },
+    { "path": "./libs/queue" },
+    { "path": "./libs/rules" },
+    { "path": "./libs/db" },
+    { "path": "./apps/api-gateway" },
+    { "path": "./apps/github-app" },
+    { "path": "./apps/web" },
+    { "path": "./services/dynamic-audit" },
+    { "path": "./services/orchestrator" },
+    { "path": "./services/scm" }
+  ]
+}

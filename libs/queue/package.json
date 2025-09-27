@@ -1,0 +1,23 @@
+{
+  "name": "@accessmate/queue",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier -w src"
+  },
+  "dependencies": {
+    "bullmq": "^5.7.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.5",
+    "eslint": "^9.10.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  }
+}

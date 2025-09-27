@@ -1,0 +1,152 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Org {
+  id        String   @id @default(uuid())
+  name      String
+  plan      String
+  users     User[]
+  projects  Project[]
+  installs  Installation[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  role      String
+  org       Org      @relation(fields: [orgId], references: [id])
+  orgId     String
+  apiKeys   APIKey[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Installation {
+  id                    String   @id @default(uuid())
+  org                   Org      @relation(fields: [orgId], references: [id])
+  orgId                 String
+  githubInstallationId  BigInt   @unique
+  createdAt             DateTime @default(now())
+}
+
+model Project {
+  id            String   @id @default(uuid())
+  org           Org      @relation(fields: [orgId], references: [id])
+  orgId         String
+  name          String
+  repoFullName  String
+  defaultBranch String
+  framework     String?
+  siteBaseUrl   String?
+  runs          Run[]
+  policies      Policy[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Run {
+  id          String     @id @default(uuid())
+  project     Project    @relation(fields: [projectId], references: [id])
+  projectId   String
+  trigger     String
+  headSha     String?
+  baseSha     String?
+  prNumber    Int?
+  status      String
+  startedAt   DateTime?  @default(now())
+  completedAt DateTime?
+  findings    Finding[]
+  media       MediaAsset[]
+  createdAt   DateTime   @default(now())
+}
+
+model Finding {
+  id           String     @id @default(uuid())
+  run          Run        @relation(fields: [runId], references: [id])
+  runId        String
+  rule         String
+  severity     String
+  selector     String?
+  filePath     String?
+  snippet      String?
+  wcagRef      String?
+  suggestion   Suggestion?
+  createdAt    DateTime   @default(now())
+}
+
+model Suggestion {
+  id          String   @id @default(uuid())
+  finding     Finding  @relation(fields: [findingId], references: [id])
+  findingId   String   @unique
+  patch       String
+  rationale   String?
+  testStubs   Json?
+  createdAt   DateTime @default(now())
+}
+
+model PullRequest {
+  id           String   @id @default(uuid())
+  project      Project  @relation(fields: [projectId], references: [id])
+  projectId    String
+  provider     String
+  repo         String
+  prNumber     Int
+  branch       String
+  status       String
+  run          Run?     @relation(fields: [runId], references: [id])
+  runId        String?
+  lighthouseBefore Json?
+  lighthouseAfter  Json?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Policy {
+  id            String  @id @default(uuid())
+  project       Project @relation(fields: [projectId], references: [id])
+  projectId     String
+  minContrast   Float?
+  failOnSeverity String?
+  routesConfig  Json?
+  schedule      String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model MediaAsset {
+  id        String  @id @default(uuid())
+  run       Run     @relation(fields: [runId], references: [id])
+  runId     String
+  type      String
+  uri       String
+  metadata  Json?
+  createdAt DateTime @default(now())
+}
+
+model APIKey {
+  id        String  @id @default(uuid())
+  label     String
+  value     String  @unique
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  revokedAt DateTime?
+}
+
+model GuidelineChunk {
+  id        String   @id @default(uuid())
+  source    String
+  heading   String
+  body      String
+  embedding Bytes
+  createdAt DateTime @default(now())
+}
