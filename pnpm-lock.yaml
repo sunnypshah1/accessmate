@@ -258,6 +258,9 @@ importers:
       '@accessmate/queue':
         specifier: workspace:*
         version: link:../../libs/queue
+      '@accessmate/scm':
+        specifier: workspace:*
+        version: link:../scm
     devDependencies:
       tsx:
         specifier: ^4.17.0
@@ -265,6 +268,25 @@ importers:
       typescript:
         specifier: ^5.5.4
         version: 5.9.2
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@20.19.17)
+
+  services/scm:
+    dependencies:
+      '@accessmate/diagnostics':
+        specifier: workspace:*
+        version: link:../../libs/diagnostics
+      '@accessmate/github':
+        specifier: workspace:*
+        version: link:../../libs/github
+    devDependencies:
+      typescript:
+        specifier: ^5.5.4
+        version: 5.9.2
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@20.19.17)
 
 packages:
 
