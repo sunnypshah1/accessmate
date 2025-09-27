@@ -15,7 +15,7 @@
     "@accessmate/queue": "workspace:*",
     "@accessmate/core-types": "workspace:*",
     "@accessmate/rag": "workspace:*",
-    "bullmq": "^5.7.5"
+    "bullmq": "^5.7.5",
     "@accessmate/scm": "workspace:*"
   },
   "devDependencies": {
