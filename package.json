@@ -1,9 +1,9 @@
 {
     "name": "accessmate-ai",
     "private": true,
-    "packageManager": "pnpm@9",
+    "packageManager": "pnpm@9.0.0",
     "scripts": {
-        "build": "pnpm -r build",
+        "build": "pnpm -r --workspace-concurrency=1 build",
         "dev": "pnpm --filter ./apps/* dev",
         "lint": "pnpm -r lint",
         "test": "pnpm -r test",
