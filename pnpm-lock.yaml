@@ -258,13 +258,44 @@ importers:
       '@accessmate/queue':
         specifier: workspace:*
         version: link:../../libs/queue
+      '@accessmate/rag':
+        specifier: workspace:*
+        version: link:../rag
+      bullmq:
+        specifier: ^5.7.5
+        version: 5.58.9
     devDependencies:
+      '@types/node':
+        specifier: ^20.19.17
+        version: 20.19.17
       tsx:
         specifier: ^4.17.0
         version: 4.20.6
       typescript:
         specifier: ^5.5.4
         version: 5.9.2
+
+  services/rag:
+    dependencies:
+      '@accessmate/db':
+        specifier: workspace:*
+        version: link:../../libs/db
+      '@accessmate/diagnostics':
+        specifier: workspace:*
+        version: link:../../libs/diagnostics
+      '@accessmate/wcag':
+        specifier: workspace:*
+        version: link:../../libs/wcag
+    devDependencies:
+      '@types/node':
+        specifier: ^20.19.17
+        version: 20.19.17
+      typescript:
+        specifier: ^5.5.4
+        version: 5.9.2
+      vitest:
+        specifier: ^2.1.2
+        version: 2.1.9(@types/node@20.19.17)
 
 packages:
 
