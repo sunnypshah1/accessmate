@@ -1,4 +1,4 @@
-import checklist from './guidelines.json' assert { type: 'json' };
+import checklist from './guidelines.json';
 
 
 export type WCAGChecklist = typeof checklist;

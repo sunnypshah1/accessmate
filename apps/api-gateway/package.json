@@ -1,16 +1,23 @@
 {
-"name": "@accessmate/api-gateway",
-"version": "0.1.1",
-"type": "module",
-"main": "dist/index.js",
-"scripts": {
-"dev": "tsx src/index.ts",
-"build": "tsc -p tsconfig.json"
-},
-"dependencies": {
-"express": "^4.19.2",
-"zod": "^3.23.8",
-"bullmq": "^5.6.0"
-},
-"devDependencies": { "tsx": "^4.17.0", "typescript": "^5.5.4" }
+  "name": "@accessmate/api-gateway",
+  "version": "0.1.1",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@accessmate/core-types": "workspace:*",
+    "@accessmate/diagnostics": "workspace:*",
+    "@accessmate/persistence": "workspace:*",
+    "bullmq": "^5.6.0",
+    "express": "^4.19.2",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
+  }
 }
